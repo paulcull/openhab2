@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<thing:thing-descriptions bindingId="webbrick"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:thing="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0"
+        xsi:schemaLocation="http://eclipse.org/smarthome/schemas/thing-description/v1.0.0 http://eclipse.org/smarthome/schemas/thing-description-1.0.0.xsd">
+
+    <!-- Set the bridge up -->
+    <bridge-type id="webbrick">
+        <label>WebBrick IP Access Point</label>
+        <description>Ethernet access point to WebBrick HA system</description>
+
+        <config-description>
+            <parameter name="ipAddress" type="text" required="true">
+                <context>network-address</context>
+                <label>IP or Host Name</label>
+                <description>The IP or host name of the Lutron integration access point</description>
+            </parameter>
+        </config-description>
+    </bridge-type>
+
+
+
+    <!-- Thing Type -->
+    <thing-type id="dimmer">
+        <supported-bridge-type-refs>
+            <bridge-type-ref id="webbrickbridge"/>
+        </supported-bridge-type-refs>
+
+        <label> Dimmer</label>
+        <description>Controls dimmable loads</description>
+
+        <channels>
+            <channel id="lightlevel" typeId="lightDimmer"/>
+        </channels>
+
+        <config-description>
+            <parameter name="integrationId" type="integer" required="true">
+                <label>Integration ID</label>
+                <description>Address of dimmer in the Lutron lighting system</description>
+            </parameter>
+            <parameter name="fadeInTime" type="decimal">
+                <label>Fade In Time</label>
+                <description>Fade time in seconds when turning on the light</description>
+            </parameter>
+            <parameter name="fadeOutTime" type="decimal">
+                <label>Fade Out Time</label>
+                <description>Fade time in seconds when turning off the light</description>
+            </parameter>
+        </config-description>
+    </thing-type>
+
+    <thing-type id="temp">
+        <supported-bridge-type-refs>
+            <bridge-type-ref id="webbrickbridge"/>
+        </supported-bridge-type-refs>
+
+        <label> Temperature</label>
+        <description>Displays local temperature</description>
+
+        <channels>
+            <channel id="temperature" typeId="temperature"/>
+        </channels>
+
+        <config-description>
+            <parameter name="integrationId" type="integer" required="true">
+                <label>Integration ID</label>
+                <description>Address of temperatue in the webbrick system</description>
+            </parameter>
+        </config-description>
+    </thing-type>
+
+    <thing-type id="switch">
+        <supported-bridge-type-refs>
+            <bridge-type-ref id="webbrickbridge"/>
+        </supported-bridge-type-refs>
+
+        <label>Maestro Switch</label>
+        <description>On/off switch</description>
+
+        <channels>
+            <channel id="switchstatus" typeId="switchState"/>
+        </channels>
+
+        <config-description>
+            <parameter name="integrationId" type="integer" required="true">
+                <label>Integration ID</label>
+                <description>Address of switch in the webbrick system</description>
+            </parameter>
+        </config-description>
+    </thing-type>
+
+    <thing-type id="occupancysensor">
+        <supported-bridge-type-refs>
+            <bridge-type-ref id="webbrickbridge"/>
+        </supported-bridge-type-refs>
+
+        <label>Radio Powr Savr Sensor</label>
+        <description>Motion sensor to detect occupancy status</description>
+
+        <channels>
+            <channel id="occupancystatus" typeId="occupiedState"/>
+        </channels>
+
+        <config-description>
+            <parameter name="integrationId" type="integer" required="true">
+                <label>Integration ID</label>
+                <description>Address of sensor in the webbrick system</description>
+            </parameter>
+        </config-description>
+    </thing-type>
+
+
+    <!-- Channel Types -->
+    <channel-type id="lightDimmer">
+        <item-type>Dimmer</item-type>
+        <label>Light Level</label>
+        <description>Increase/decrease the light level</description>
+        <category>DimmableLight</category>
+        <state min="0" max="100" pattern="%d %%"/>
+    </channel-type>
+
+    <channel-type id="temperature">
+        <item-type>Temperature</item-type>
+        <label>Temperature</label>
+        <description>Temperature</description>
+        <category>Temperature</category>
+    </channel-type>
+
+    <channel-type id="switchState">
+        <item-type>Switch</item-type>
+        <label>Switch State</label>
+        <description>On/off status of the switch</description>
+        <category>Switch</category>
+    </channel-type>
+
+    <channel-type id="occupiedState">
+        <item-type>Switch</item-type>
+        <label>Occupied State</label>
+        <description>Occupancy status</description>
+        <category>Motion</category>
+        <state readOnly="true"/>
+    </channel-type>
+
+    <channel-type id="button">
+        <item-type>Switch</item-type>
+        <label>Keypad button</label>
+        <description>Button to trigger a scene or rule</description>
+        <category>Switch</category>
+    </channel-type>
+
+    <channel-type id="ledIndicator">
+        <item-type>Switch</item-type>
+        <label>Keypad button LED indicator</label>
+        <description>LED indicator for the associated button</description>
+        <category>Light</category>
+    </channel-type>
+
+
+</thing:thing-descriptions>

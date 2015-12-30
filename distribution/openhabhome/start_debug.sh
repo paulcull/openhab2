@@ -10,7 +10,7 @@ if [ ! -z ${OPENHAB_HTTP_PORT} ]
 then
     HTTP_PORT=${OPENHAB_HTTP_PORT}
 else
-    HTTP_PORT=8080
+    HTTP_PORT=8088
 fi
 
 if [ ! -z ${OPENHAB_HTTPS_PORT} ]

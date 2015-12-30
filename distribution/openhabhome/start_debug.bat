@@ -6,7 +6,7 @@ set ECLIPSEHOME="runtime/server"
 :: set ports for HTTP(S) server
 :check_http_port
 IF NOT [%OPENHAB_HTTP_PORT%] == [] GOTO :http_port_set
-set HTTP_PORT=8080
+set HTTP_PORT=8088
 goto :check_https_port
 
 :http_port_set
